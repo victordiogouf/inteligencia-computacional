@@ -16,6 +16,7 @@ class Job
         int id;
         int processingTime;
         int initTime;
+        int initTimeAux;
         int endTime;
     public:
         Job(int time);
@@ -26,6 +27,8 @@ class Job
         void setId(int id);
         int getInitTime();
         void setInitTime(int time);
+        int getInitTimeAux();
+        void setInitTimeAux(int time);
         int getEndTime();
         void setEndTime(int time);
 };

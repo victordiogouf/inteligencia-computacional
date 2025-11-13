@@ -13,6 +13,7 @@
 #include "Instance.h"
 
 #include <cstring>
+#include <utility>
 
 class Management 
 {
@@ -41,11 +42,13 @@ class Management
         */
         void initInstance(std::string file);
 
-        std::vector<Job*> constructive();
+        std::pair<std::vector<Job*>, int> constructive();
         std::vector<Job*> localSearch(std::vector<Job*> solutionInit);
+        int objectFunction(std::vector<Job*> jobs);
 
         std::vector<Job*> getCandidatesList(std::vector<Job*> solution);
         bool findJob(std::vector<Job*> list, int idJob);
+        bool compare(Job* job1, Job* job2);
 };
 
 #endif

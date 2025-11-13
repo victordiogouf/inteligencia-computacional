@@ -47,9 +47,19 @@ void Job::setInitTime(int time)
     this->initTime = time;
 }
 
+int Job::getInitTimeAux()
+{
+    return this->initTimeAux;
+}
+
+void Job::setInitTimeAux(int time)
+{
+    this->initTimeAux = time;
+}
+
 int Job::getEndTime()
 {
-    return this->endTime;
+    return this->initTime + this->processingTime;
 }
 
 void Job::setEndTime(int time)
