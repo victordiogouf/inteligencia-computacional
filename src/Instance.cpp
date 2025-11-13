@@ -23,7 +23,7 @@ Instance::Instance()
 
 Instance::~Instance()
 {
-
+    
 }
 
 int Instance::getNumJobs()

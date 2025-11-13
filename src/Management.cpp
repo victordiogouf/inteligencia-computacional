@@ -37,16 +37,26 @@ void Management::initInstance(std::string file)
 
 std::pair<std::vector<Job*>, int> Management::constructive()
 {
+    double alfa = 0.5;
     std::vector<Job*> solution;
+    
+    for(Job* job : this->instance->getJobs()) {
+        job->setInitTime(0);
+        job->setInitTimeAux(0);
+        job->setEndTime(job->getProcessingTime());
+    }
+    
     std::vector<Job*> listCandidates = getCandidatesList(solution);
 
     while(listCandidates.size() != 0) {
-        // int index = prng::get_int(0,static_cast<int>((listCandidates.size()-1)));
         std::sort(listCandidates.begin(), listCandidates.end(), [](Job* job1, Job* job2){
             return job1->getInitTimeAux() < job2->getInitTimeAux();
         });
-        solution.push_back(listCandidates[0]);
-        listCandidates.erase(listCandidates.begin() + 0);
+        int index = prng::get_int(0,static_cast<int>((listCandidates.size()-1)*alfa));
+        listCandidates[index]->setEndTime(listCandidates[index]->getInitTimeAux()+listCandidates[index]->getProcessingTime());
+        // std::cout << "endtime: " << listCandidates[index]->getEndTime() << std::endl;
+        solution.push_back(listCandidates[index]);
+        listCandidates.erase(listCandidates.begin() + index);
         listCandidates = getCandidatesList(solution);
     }
 
@@ -69,9 +79,10 @@ int Management::objectFunction(std::vector<Job*> jobs)
     }
     auto r = 0;
     auto b = 0;
+    auto c = 0;
     auto es = std::vector<int>(n, 0);
     while (r < n) {
-        auto c = b + jobs[r]->getProcessingTime();
+        c = b + jobs[r]->getProcessingTime();
         if (r == n - 1) {
             return c;
         }
@@ -86,6 +97,8 @@ int Management::objectFunction(std::vector<Job*> jobs)
         auto s = this->instance->getSetupTimes();
         b = std::max(c + s[i][jobs[r]->getId()], es[jobs[r]->getId()]);
     }
+    return c;
+
 }
 
 std::vector<Job*> Management::getCandidatesList(std::vector<Job*> solution)
