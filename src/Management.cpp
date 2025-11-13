@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include <string>
+#include <algorithm>
 #include <fstream>
 
 #include "random.hpp"
@@ -41,7 +42,9 @@ std::pair<std::vector<Job*>, int> Management::constructive()
 
     while(listCandidates.size() != 0) {
         // int index = prng::get_int(0,static_cast<int>((listCandidates.size()-1)));
-        std::sort(listCandidates.begin(), listCandidates.end(), [](Job* job1, Job* job2){return job1->getInitTimeAux() < job2->getInitTimeAux();});
+        std::sort(listCandidates.begin(), listCandidates.end(), [](Job* job1, Job* job2){
+            return job1->getInitTimeAux() < job2->getInitTimeAux();
+        });
         solution.push_back(listCandidates[0]);
         listCandidates.erase(listCandidates.begin() + 0);
         listCandidates = getCandidatesList(solution);
@@ -60,21 +63,29 @@ std::vector<Job*> Management::localSearch(std::vector<Job*> solutionInit)
 
 int Management::objectFunction(std::vector<Job*> jobs)
 {
-    int makespan = 0;
-    int maior = 0;
-
-    for(int i = 0; i < jobs.size(); i++) {
-        if(i > 0) {
-            if(this->instance->getSetupTimes()[jobs[i-1]->getId()][jobs[i]->getId()] >= this->instance->getDelayConstraints()[jobs[i-1]->getId()][jobs[i]->getId()]) {
-                maior = this->instance->getSetupTimes()[jobs[i-1]->getId()][jobs[i]->getId()];
-            } else {
-                maior = this->instance->getDelayConstraints()[jobs[i-1]->getId()][jobs[i]->getId()];
+    auto n = jobs.size();
+    if (n == 0) {
+        return 0;
+    }
+    auto r = 0;
+    auto b = 0;
+    auto es = std::vector<int>(n, 0);
+    while (r < n) {
+        auto c = b + jobs[r]->getProcessingTime();
+        if (r == n - 1) {
+            return c;
+        }
+        auto d = this->instance->getDelayConstraints();
+        auto i = jobs[r]->getId();
+        for (auto j = 0; j < n; ++j) {
+            if (d[i][j] != -1) {
+                es[j] = std::max(es[j], c + d[i][j]);
             }
         }
-        makespan += jobs[i]->getProcessingTime() + maior;
+        r += 1;
+        auto s = this->instance->getSetupTimes();
+        b = std::max(c + s[i][jobs[r]->getId()], es[jobs[r]->getId()]);
     }
-
-    return makespan;
 }
 
 std::vector<Job*> Management::getCandidatesList(std::vector<Job*> solution)
