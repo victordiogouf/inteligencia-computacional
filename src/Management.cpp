@@ -37,7 +37,9 @@ void Management::initInstance(std::string file)
 
 std::pair<std::vector<Job*>, int> Management::constructive()
 {
-    double alfa = 0.5;
+    double alfa = 0.1;
+    int quantJobs = 0;
+    int index = 0;
     std::vector<Job*> solution;
     
     for(Job* job : this->instance->getJobs()) {
@@ -53,9 +55,11 @@ std::pair<std::vector<Job*>, int> Management::constructive()
             return job1->getInitTimeAux() < job2->getInitTimeAux();
         });
         int index = prng::get_int(0,static_cast<int>((listCandidates.size()-1)*alfa));
+        index = 0;
         listCandidates[index]->setEndTime(listCandidates[index]->getInitTimeAux()+listCandidates[index]->getProcessingTime());
         // std::cout << "endtime: " << listCandidates[index]->getEndTime() << std::endl;
         solution.push_back(listCandidates[index]);
+        quantJobs++;
         listCandidates.erase(listCandidates.begin() + index);
         listCandidates = getCandidatesList(solution);
     }
@@ -65,10 +69,44 @@ std::pair<std::vector<Job*>, int> Management::constructive()
 
 }
 
-std::vector<Job*> Management::localSearch(std::vector<Job*> solutionInit)
+std::pair<std::vector<Job*>, int> Management::localSearch(std::vector<Job*> solutionInit)
 {
-    std::vector<Job*> nada;
-    return nada;
+    std::vector<Job*> solutionOptimum = solutionInit;
+    std::vector<Job*> s = solutionInit;
+    int indexJob1 = 0;
+    int indexJob2 = 0;
+
+    int iter = 0;
+    int maxIter = 150;
+
+    while(iter < maxIter) {
+        indexJob1 = prng::get_int(0,static_cast<int>((solutionInit.size()-1)));
+        indexJob2 = prng::get_int(indexJob1,static_cast<int>((solutionInit.size()-1)));
+        s = swap(solutionOptimum,indexJob1,indexJob2);
+
+        // std::cout << "fez swap: " << iter << std::endl;
+
+        if(objectFunction(s) < objectFunction(solutionOptimum)) {
+            solutionOptimum = s;
+            iter = 0;
+        } else {
+            iter++;
+        }
+    }
+
+    int makespan = objectFunction(solutionOptimum);
+    return std::make_pair(std::vector<Job*>(solutionOptimum.begin(), solutionOptimum.end()), makespan);
+}
+
+std::vector<Job*> Management::swap(std::vector<Job*> solution, int indexJob1, int indexJob2)
+{
+    if(!verifySucessor(solution,indexJob1,indexJob2) && !verifyPredecessor(solution,indexJob1,indexJob2)) {
+        Job* jobAux = solution[indexJob1];
+        solution[indexJob1] = solution[indexJob2];
+        solution[indexJob2] = jobAux;
+    }
+
+    return solution;
 }
 
 int Management::objectFunction(std::vector<Job*> jobs)
@@ -153,5 +191,31 @@ bool Management::findJob(std::vector<Job*> list, int idJob)
 bool Management::compare(Job* job1, Job* job2)
 {
     return job1->getInitTimeAux() < job2->getInitTimeAux();
+}
+
+bool Management::verifySucessor(std::vector<Job*> solution, int indexInit, int indexEnd)
+{
+
+    Job* job = solution[indexInit];
+
+    for(int i = indexInit; i <= indexEnd; i++) {
+        if(this->instance->getDelayConstraints()[job->getId()][solution[i]->getId()] != -1) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Management::verifyPredecessor(std::vector<Job*> solution, int indexInit, int indexEnd)
+{
+
+    Job* job = solution[indexEnd];
+
+    for(int i = indexEnd; i >= indexInit; i--) {
+        if(this->instance->getDelayConstraints()[solution[i]->getId()][job->getId()] != -1) {
+            return true;
+        }
+    }
+    return false;
 }
 

@@ -43,12 +43,17 @@ class Management
         void initInstance(std::string file);
 
         std::pair<std::vector<Job*>, int> constructive();
-        std::vector<Job*> localSearch(std::vector<Job*> solutionInit);
+        std::pair<std::vector<Job*>, int> localSearch(std::vector<Job*> solutionInit);
         int objectFunction(std::vector<Job*> jobs);
 
         std::vector<Job*> getCandidatesList(std::vector<Job*> solution);
         bool findJob(std::vector<Job*> list, int idJob);
         bool compare(Job* job1, Job* job2);
+
+        std::vector<Job*> swap(std::vector<Job*> solution, int indexJob1, int indexJob2);
+
+        bool verifySucessor(std::vector<Job*> solution, int indexInit, int indexEnd);
+        bool verifyPredecessor(std::vector<Job*> solution, int indexInit, int indexEnd);
 };
 
 #endif
