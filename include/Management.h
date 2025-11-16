@@ -44,16 +44,19 @@ class Management
 
         std::pair<std::vector<Job*>, int> constructive();
         std::pair<std::vector<Job*>, int> localSearch(std::vector<Job*> solutionInit);
-        int objectFunction(std::vector<Job*> jobs);
+        int objectiveFunction(std::vector<Job*>& jobs);
 
         std::vector<Job*> getCandidatesList(std::vector<Job*> solution);
         bool findJob(std::vector<Job*> list, int idJob);
         bool compare(Job* job1, Job* job2);
 
+        // indexJob1 < indexJob2
         std::vector<Job*> swap(std::vector<Job*> solution, int indexJob1, int indexJob2);
 
-        bool verifySucessor(std::vector<Job*> solution, int indexInit, int indexEnd);
-        bool verifyPredecessor(std::vector<Job*> solution, int indexInit, int indexEnd);
+        // retorna true se existir sucessor do job em indexInit no intervalo dado
+        bool verifySucessor(std::vector<Job*>& solution, int indexInit, int indexEnd);
+        // retorna true se existir predecessor do job em indexEnd no intervalo dado
+        bool verifyPredecessor(std::vector<Job*>& solution, int indexInit, int indexEnd);
 };
 
 #endif
