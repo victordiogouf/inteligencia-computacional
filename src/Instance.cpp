@@ -31,17 +31,17 @@ int Instance::getNumJobs()
     return this->numJobs;
 }
 
-std::vector<Job*> Instance::getJobs()
+std::vector<Job*>& Instance::getJobs()
 {
     return this->jobs;
 }
 
-std::vector<std::vector<int>> Instance::getSetupTimes()
+std::vector<std::vector<int>>& Instance::getSetupTimes()
 {
     return this->setupTimes;
 }
 
-std::vector<std::vector<int>> Instance::getDelayConstraints()
+std::vector<std::vector<int>>& Instance::getDelayConstraints()
 {
     return this->delayConstraints;
 }

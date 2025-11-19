@@ -45,8 +45,8 @@ class Management
         std::pair<std::vector<Job*>, int> localSearch(std::vector<Job*> solutionInit);
         int objectiveFunction(std::vector<Job*>& jobs);
 
-        std::vector<Job*> getCandidatesList(std::vector<Job*> solution);
-        bool findJob(std::vector<Job*> list, int idJob);
+        std::vector<Job*> getCandidatesList(std::vector<Job*>& solution);
+        bool findJob(std::vector<Job*>& list, int idJob);
         bool compare(Job* job1, Job* job2);
 
         // indexJob1 < indexJob2

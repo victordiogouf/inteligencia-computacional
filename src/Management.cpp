@@ -119,12 +119,13 @@ int Management::objectiveFunction(std::vector<Job*>& jobs)
     auto b = 0;
     auto c = 0;
     auto es = std::vector<int>(n, 0);
+    auto d = this->instance->getDelayConstraints();
+    auto s = this->instance->getSetupTimes();
     while (r < n) {
         c = b + jobs[r]->getProcessingTime();
         if (r == n - 1) {
             return c;
         }
-        auto d = this->instance->getDelayConstraints();
         auto i = jobs[r]->getId();
         for (auto j = 0; j < n; ++j) {
             if (d[i][j] != -1) {
@@ -132,14 +133,13 @@ int Management::objectiveFunction(std::vector<Job*>& jobs)
             }
         }
         r += 1;
-        auto s = this->instance->getSetupTimes();
         b = std::max(c + s[i][jobs[r]->getId()], es[jobs[r]->getId()]);
     }
     return c;
 
 }
 
-std::vector<Job*> Management::getCandidatesList(std::vector<Job*> solution)
+std::vector<Job*> Management::getCandidatesList(std::vector<Job*>& solution)
 {
     std::vector<Job*> candidates;
     Job* sol;
@@ -149,21 +149,26 @@ std::vector<Job*> Management::getCandidatesList(std::vector<Job*> solution)
     int maior = 0;
     bool isCandidate;
 
-    for(int i = 0; i < this->instance->getNumJobs(); i++) {
+    auto numJobs = this->instance->getNumJobs();
+    auto delayConstraints = this->instance->getDelayConstraints();
+    auto setupTimes = this->instance->getSetupTimes();
+    auto jobs = this->instance->getJobs();
+
+    for(int i = 0; i < numJobs; i++) {
         isCandidate = true;
         if(!findJob(solution,i)) {
-            for(int j = 0; j < this->instance->getNumJobs(); j++) {
-                if(this->instance->getDelayConstraints()[j][i] != -1 && !findJob(solution,j)) {
+            for(int j = 0; j < numJobs; j++) {
+                if(delayConstraints[j][i] != -1 && !findJob(solution,j)) {
                     isCandidate = false;
                 }
             }
             if(isCandidate) {
-                candidates.push_back(this->instance->getJobs()[i]);
+                candidates.push_back(jobs[i]);
                 if(solution.size() > 0) {
                     sol = solution[solution.size()-1];
-                    atual = this->instance->getJobs()[i];
-                    setup = this->instance->getSetupTimes()[sol->getId()][atual->getId()];
-                    delay = this->instance->getDelayConstraints()[sol->getId()][atual->getId()];
+                    atual = jobs[i];
+                    setup = setupTimes[sol->getId()][atual->getId()];
+                    delay = delayConstraints[sol->getId()][atual->getId()];
                     maior = setup >= delay ? setup : delay;
                     if(sol->getEndTime()+maior > atual->getInitTime()) {
                         if(delay < 0) {
@@ -184,7 +189,7 @@ std::vector<Job*> Management::getCandidatesList(std::vector<Job*> solution)
     return candidates;
 }
 
-bool Management::findJob(std::vector<Job*> list, int idJob)
+bool Management::findJob(std::vector<Job*>& list, int idJob)
 {
     for(Job* j : list) {
         if(j->getId() == idJob) return true;

@@ -38,9 +38,9 @@ class Instance
         */
         ~Instance();
         int getNumJobs();
-        std::vector<Job*> getJobs();
-        std::vector<std::vector<int>> getSetupTimes();
-        std::vector<std::vector<int>> getDelayConstraints();
+        std::vector<Job*>& getJobs();
+        std::vector<std::vector<int>>& getSetupTimes();
+        std::vector<std::vector<int>>& getDelayConstraints();
         std::string getPath();
 
         /**

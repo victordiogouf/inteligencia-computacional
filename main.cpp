@@ -51,7 +51,7 @@ int main(int argc, char* argv[])
         duracao = fim - inicio;
   
         std::cout << "makespan busca local: " << solutionInit.second << std::endl;
-        std::cout << "duracao busca local: " << duracao.count() << std::endl;
+        std::cout << "duracao busca local: " << duracao.count() << "s" << std::endl;
         // std::cout << "a solucao encontrada com busca local foi: " << std::endl;
         // for(Job* job : solutionInit.first) {
         //   std::cout << job->getId() << " ";
