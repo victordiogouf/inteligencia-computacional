@@ -42,11 +42,7 @@ std::pair<std::vector<Job*>, int> Management::constructive()
     int index = 0;
     std::vector<Job*> solution;
     
-    for(Job* job : this->instance->getJobs()) {
-        job->setInitTime(0);
-        job->setInitTimeAux(0);
-        job->setEndTime(job->getProcessingTime());
-    }
+    this->instance->resetInstance();
     
     std::vector<Job*> listCandidates = getCandidatesList(solution);
 
@@ -71,20 +67,25 @@ std::pair<std::vector<Job*>, int> Management::constructive()
 std::pair<std::vector<Job*>, int> Management::localSearch(std::vector<Job*> solutionInit)
 {
     std::vector<Job*> solutionOptimum = solutionInit;
-    auto optimum_obj_func = objectiveFunction(solutionOptimum);
     std::vector<Job*> s = solutionInit;
+    int optimum_obj_func = objectiveFunction(solutionOptimum);
+    int obj_func = 0;
+    bool better_solution = false;
 
     while (true) {
-        auto better_solution = false;
+        better_solution = false;
         auto size = solutionOptimum.size();
-        for (auto i = 0; i < size - 1; ++i) {
-            for (auto j = i + 1; j < size; ++j) {
-                s = swap(solutionOptimum, i, j);
-                auto obj_func = objectiveFunction(s);
-                if (obj_func < optimum_obj_func) {
-                    solutionOptimum = s;
-                    optimum_obj_func = obj_func;
-                    better_solution = true;
+        int x = prng::get_int(0,static_cast<int>((solutionInit.size()-1)));
+        for (int i = x; i < size - 1; ++i) {
+            for (int j = 0; j < size; ++j) {
+                if( i != j) {
+                    s = swap(solutionOptimum, i, j);
+                    obj_func = objectiveFunction(s);
+                    if (obj_func < optimum_obj_func) {
+                        solutionOptimum = s;
+                        optimum_obj_func = obj_func;
+                        better_solution = true;
+                    }
                 }
             }
         }
@@ -141,6 +142,11 @@ int Management::objectiveFunction(std::vector<Job*>& jobs)
 std::vector<Job*> Management::getCandidatesList(std::vector<Job*> solution)
 {
     std::vector<Job*> candidates;
+    Job* sol;
+    Job* atual;
+    int setup = 0;
+    int delay = 0;
+    int maior = 0;
     bool isCandidate;
 
     for(int i = 0; i < this->instance->getNumJobs(); i++) {
@@ -154,11 +160,11 @@ std::vector<Job*> Management::getCandidatesList(std::vector<Job*> solution)
             if(isCandidate) {
                 candidates.push_back(this->instance->getJobs()[i]);
                 if(solution.size() > 0) {
-                    Job* sol = solution[solution.size()-1];
-                    Job* atual = this->instance->getJobs()[i];
-                    int setup = this->instance->getSetupTimes()[sol->getId()][atual->getId()];
-                    int delay = this->instance->getDelayConstraints()[sol->getId()][atual->getId()];
-                    int maior = setup >= delay ? setup : delay;
+                    sol = solution[solution.size()-1];
+                    atual = this->instance->getJobs()[i];
+                    setup = this->instance->getSetupTimes()[sol->getId()][atual->getId()];
+                    delay = this->instance->getDelayConstraints()[sol->getId()][atual->getId()];
+                    maior = setup >= delay ? setup : delay;
                     if(sol->getEndTime()+maior > atual->getInitTime()) {
                         if(delay < 0) {
                             atual->setInitTime(sol->getEndTime());

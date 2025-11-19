@@ -137,3 +137,12 @@ void Instance::readInstance(std::string file)
         throw std::ios_base::failure("Erro leitura do arquivo");
     }
 }
+
+void Instance::resetInstance()
+{
+    for(Job* job : this->jobs) {
+        job->setInitTime(0);
+        job->setInitTimeAux(0);
+        job->setEndTime(job->getProcessingTime());
+    }
+}

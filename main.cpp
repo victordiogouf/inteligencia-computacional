@@ -11,8 +11,9 @@
 #include "Job.h"
 
 #include <iostream>
-#include <fstream>
 #include <string>
+#include <fstream>
+#include <chrono>
 
 /**
 * TODO: alterar o codigo para mostrar somente a melhor solucao das calculadas no loop
@@ -29,9 +30,13 @@ int main(int argc, char* argv[])
       std::vector<Job*> solutionOptimum;
 
       for(int i = 0; i < 10; i++) {
+        auto inicio = std::chrono::high_resolution_clock::now();
         auto solutionInit = management->constructive();
+        auto fim = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> duracao = fim - inicio;
   
         std::cout << "makespan construtivo: " << solutionInit.second << std::endl;
+        std::cout << "duracao construtivo: " << duracao.count() << "s" << std::endl;
         // std::cout << "a solucao encontrada com construtivo foi: " << std::endl;
         // for(Job* job : solutionInit.first) {
         //   std::cout << job->getId() << " ";
@@ -40,9 +45,13 @@ int main(int argc, char* argv[])
         // std::cout << std::endl;
         std::cout << std::endl;
 
+        inicio = std::chrono::high_resolution_clock::now();
         solutionInit = management->localSearch(solutionInit.first);
+        fim = std::chrono::high_resolution_clock::now();
+        duracao = fim - inicio;
   
         std::cout << "makespan busca local: " << solutionInit.second << std::endl;
+        std::cout << "duracao busca local: " << duracao.count() << std::endl;
         // std::cout << "a solucao encontrada com busca local foi: " << std::endl;
         // for(Job* job : solutionInit.first) {
         //   std::cout << job->getId() << " ";

@@ -48,6 +48,11 @@ class Instance
         * @param file - nome do arquivo da instancia
         */
         void readInstance(std::string file);
+
+        /**
+        * * Metodo responsavel por resetar os valores de initTime e EndTime de cada job da instancia
+        */
+        void resetInstance();
 };
 
 #endif

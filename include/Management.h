@@ -25,8 +25,6 @@ class Management
         /**
         * * Metodo construtor da classe Management
         * @param fileInstance - nome do arquivo onde esta a instancia
-        * @exception invalid_argument - excecao lancada caso o nome do arquivo seja invalido
-        * ! a variavel nao pode conter a path inteira, somente o nome do arquivo
         */
         Management(std::string fileInstance);
 
@@ -39,6 +37,7 @@ class Management
         * * Metodo responsavel por inicializar a instancia
         * @param file - nome do arquivo da instancia
         * @exception failure - erro na leitura do arquivo
+        * ! a variavel nao pode conter a path inteira, somente o nome do arquivo
         */
         void initInstance(std::string file);
 
