@@ -25,6 +25,7 @@ class Management
         /**
         * * Metodo construtor da classe Management
         * @param fileInstance - nome do arquivo onde esta a instancia
+        * ! a variavel nao pode conter a path inteira, somente o nome do arquivo
         */
         Management(std::string fileInstance);
 
@@ -35,9 +36,7 @@ class Management
 
         /**
         * * Metodo responsavel por inicializar a instancia
-        * @param file - nome do arquivo da instancia
         * @exception failure - erro na leitura do arquivo
-        * ! a variavel nao pode conter a path inteira, somente o nome do arquivo
         */
         void initInstance();
 
@@ -51,15 +50,34 @@ class Management
         bool findJob(std::vector<Job*>& list, int idJob);
         bool compare(Job* job1, Job* job2);
 
-        // indexJob1 < indexJob2
+        /**
+        * * Metodo responsavel por realizar o movimento de swap para a busca local
+        * @param solution - conjunto de jobs
+        * @param indexJob1 - indice do job 1 para ser utilizado no swap
+        * @param indexJob2 - indice do job 2 para ser utilizado no swap 
+        * @return vector de jobs
+        */
         std::vector<Job*> swap(std::vector<Job*> solution, int indexJob1, int indexJob2);
 
-        // retorna true se existir sucessor do job em indexInit no intervalo dado
+        /**
+        * * Metodo responsavel por verificar se o job no indexInit possui algum job
+        * * até indexEnd que tenha uma constante de precedencia com ele
+        * @param solution - conjunto de jobs da solucao atual
+        * @param indexInit - indice do job inicial a ser verificado
+        * @param indexEnd - indice limite da solucao a ser verificada
+        * @return (verdadeiro caso possua uma regra de precedencia, false caso contrario)
+        */
         bool verifySucessor(std::vector<Job*>& solution, int indexInit, int indexEnd);
-        // retorna true se existir predecessor do job em indexEnd no intervalo dado
+        
+        /**
+        * * Metodo responsavel por verificar se o job no indexEnd possui algum job
+        * * até indexInit que tenha uma constante de precedencia com ele
+        * @param solution - conjunto de jobs da solucao atual
+        * @param indexInit - indice limite da solucao a ser verificada
+        * @param indexEnd - indice do job inicial a ser verificado
+        * @return (verdadeiro caso possua uma regra de precedencia, false caso contrario)
+        */
         bool verifyPredecessor(std::vector<Job*>& solution, int indexInit, int indexEnd);
-
-        void resetFileSolution();
 };
 
 #endif

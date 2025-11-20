@@ -26,15 +26,16 @@ class Instance
 
         std::string fileName;
         
-        /**
-        * * Metodo privado construtor da classe instance
-        */
-        
     public:
-        Instance(std::string fileName);
-        
+    
         const std::string path = PROJECT_ROOT"/instances/";
         const std::string pathSolution = PROJECT_ROOT"/saidas/";
+    
+        /**
+        * * Metodo contrutor da classe
+        * @param fileName - nome do arquivo de instancia
+        */
+        Instance(std::string fileName);
 
         /**
         * * Metodo destrutor da classe instance
@@ -48,8 +49,7 @@ class Instance
         std::string getFileName();
 
         /**
-        * * Metodo responsavel por ler o arquivo da instancia e armazenar os dados na estrutura
-        * @param file - nome do arquivo da instancia
+        * * Metodo responsavel por ler a instancia e inicializar os atributos
         */
         void readInstance();
 
@@ -58,6 +58,12 @@ class Instance
         */
         void resetInstance();
 
+        /**
+        * * Metodo responsavel por escrever no arquivo as solucoes daquelas iteracoes
+        * @param ofs - stream de escrita pro arquivo
+        * @param dados - pair com os dados (conjunto de jobs, makespan, alfa, duracao em segundos)
+        * @param iteracao - interacao atual
+        */
         void writeFileSolution(std::ofstream&ofs, std::pair<std::vector<Job*>, std::vector<double>> dados, int iteracao);
 };
 

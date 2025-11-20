@@ -112,7 +112,7 @@ std::pair<std::vector<Job*>, int> Management::constructive(double alfa)
         });
         int index = prng::get_int(0,static_cast<int>((listCandidates.size()-1)*alfa));
         listCandidates[index]->setEndTime(listCandidates[index]->getInitTimeAux()+listCandidates[index]->getProcessingTime());
-        // std::cout << "endtime: " << listCandidates[index]->getEndTime() << std::endl;
+
         solution.push_back(listCandidates[index]);
         quantJobs++;
         listCandidates.erase(listCandidates.begin() + index);
