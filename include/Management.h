@@ -39,10 +39,12 @@ class Management
         * @exception failure - erro na leitura do arquivo
         * ! a variavel nao pode conter a path inteira, somente o nome do arquivo
         */
-        void initInstance(std::string file);
+        void initInstance();
 
-        std::pair<std::vector<Job*>, int> constructive();
-        std::pair<std::vector<Job*>, int> localSearch(std::vector<Job*> solutionInit);
+        void calcSolution();
+
+        std::pair<std::vector<Job*>, int> constructive(double alfa);
+        std::pair<std::vector<Job*>, std::vector<double>> localSearch(std::vector<Job*> solutionInit);
         int objectiveFunction(std::vector<Job*>& jobs);
 
         std::vector<Job*> getCandidatesList(std::vector<Job*>& solution);
@@ -56,6 +58,8 @@ class Management
         bool verifySucessor(std::vector<Job*>& solution, int indexInit, int indexEnd);
         // retorna true se existir predecessor do job em indexEnd no intervalo dado
         bool verifyPredecessor(std::vector<Job*>& solution, int indexInit, int indexEnd);
+
+        void resetFileSolution();
 };
 
 #endif

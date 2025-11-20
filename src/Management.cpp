@@ -18,7 +18,7 @@
 
 Management::Management(std::string fileInstance)
 {
-    this->instance = new Instance();
+    this->instance = new Instance(fileInstance);
 }
 
 Management::~Management()
@@ -26,18 +26,78 @@ Management::~Management()
 
 }
 
-void Management::initInstance(std::string file)
+void Management::initInstance()
 {
     try {
-        this->instance->readInstance(file);
+        this->instance->readInstance();
     } catch(std::ios_base::failure& e) {
         throw std::ios_base::failure(e);
     }
 }
 
-std::pair<std::vector<Job*>, int> Management::constructive()
+void Management::calcSolution()
 {
+    std::vector<Job*> solutionOptimum;
+    double bestMakespan = std::numeric_limits<double>::infinity();
+    int numIteracoes = 10;
+    double somaTime = 0;
+    double somaMakespan = 0;
+
     double alfa = 0.1;
+
+    std::ofstream ofs;
+    ofs.exceptions(std::ios_base::badbit);
+
+    try {
+
+        ofs.open(this->instance->pathSolution+this->instance->getFileName(), std::ios_base::out | std::ios_base::trunc);
+        if(!ofs.is_open()) throw std::ios_base::failure("Erro ao abrir o arquivo de saida, para escrita da solucao");
+
+        ofs << " * Resultados Obtidos nas " << numIteracoes << " Iteracoes: " << std::endl << std::endl;
+
+        std::cout << "Gerando Solucao..." << std::endl;
+    
+        for(int i = 0; i < numIteracoes; i++) {
+            auto inicio = std::chrono::high_resolution_clock::now();
+            
+            auto solutionInit = constructive(alfa);
+            auto solutionLocalSearch = localSearch(solutionInit.first);
+            
+            auto fim = std::chrono::high_resolution_clock::now();
+            std::chrono::duration<double> duracao = fim - inicio;
+
+            solutionLocalSearch.second.push_back(alfa);
+            solutionLocalSearch.second.push_back(duracao.count());
+            
+            this->instance->writeFileSolution(ofs,solutionLocalSearch,i);
+            
+            somaTime += duracao.count();
+            somaMakespan += solutionLocalSearch.second[0];
+        
+            if(solutionLocalSearch.second[0] < bestMakespan) {
+                bestMakespan = solutionLocalSearch.second[0];
+                solutionOptimum = solutionLocalSearch.first;
+            }
+        }
+
+        ofs << std::endl;
+        ofs << " --> Melhor Makespan Obtido: " << static_cast<int>(bestMakespan) << std::endl; // escreve no arquivo
+        ofs << " --> Media dos Makespans Obtidos: " << somaMakespan/numIteracoes << std::endl; // escreve no arquivo
+        ofs << " --> Media da Duracao Total das Iteracoes: " << static_cast<double>(somaTime)/numIteracoes << "s" << std::endl; //escreve no arquivo
+       
+        ofs.close();
+
+        std::cout << "Arquivo gerado em \\saidas com os valores da solucao!!" << std::endl;
+    
+    } catch(std::ios_base::failure& e) {
+        throw std::ios_base::failure("Erro escrita do arquivo de saida");
+    }
+
+}
+
+std::pair<std::vector<Job*>, int> Management::constructive(double alfa)
+{
+    // double alfa = 0.1;
     int quantJobs = 0;
     int index = 0;
     std::vector<Job*> solution;
@@ -64,7 +124,7 @@ std::pair<std::vector<Job*>, int> Management::constructive()
 
 }
 
-std::pair<std::vector<Job*>, int> Management::localSearch(std::vector<Job*> solutionInit)
+std::pair<std::vector<Job*>, std::vector<double>> Management::localSearch(std::vector<Job*> solutionInit)
 {
     std::vector<Job*> solutionOptimum = solutionInit;
     std::vector<Job*> s = solutionInit;
@@ -94,7 +154,8 @@ std::pair<std::vector<Job*>, int> Management::localSearch(std::vector<Job*> solu
         }
     }
 
-    int makespan = objectiveFunction(solutionOptimum);
+    std::vector<double> makespan;
+    makespan.push_back(objectiveFunction(solutionOptimum));
     return std::make_pair(std::vector<Job*>(solutionOptimum.begin(), solutionOptimum.end()), makespan);
 }
 

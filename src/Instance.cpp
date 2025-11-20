@@ -16,9 +16,9 @@
 
 #include "Instance.h"
 
-Instance::Instance()
+Instance::Instance(std::string fileName)
 {
-
+    this->fileName = fileName;
 }
 
 Instance::~Instance()
@@ -51,7 +51,12 @@ std::string Instance::getPath()
     return this->path;
 }
 
-void Instance::readInstance(std::string file)
+std::string Instance::getFileName()
+{
+    return this->fileName;
+}
+
+void Instance::readInstance()
 {
     std::ifstream ifs;
     std::string line;
@@ -60,7 +65,7 @@ void Instance::readInstance(std::string file)
 
     try {
 
-        ifs.open(path+file, std::ios_base::in);
+        ifs.open(path+this->fileName, std::ios_base::in);
         if(!ifs.is_open()) throw std::ios_base::failure("Erro ao abrir o arquivo, informe um arquivo dentro de /instances");
 
         while (std::getline(ifs, line)) {
@@ -145,4 +150,27 @@ void Instance::resetInstance()
         job->setInitTimeAux(0);
         job->setEndTime(job->getProcessingTime());
     }
+}
+
+void Instance::writeFileSolution(std::ofstream&ofs, std::pair<std::vector<Job*>, std::vector<double>> dados, int iteracao)
+{
+    ofs << "  --> Iteracao: " << iteracao+1 << std::endl;
+    
+    ofs << "     Conjunto de Jobs:" << std::endl;
+    ofs << "     C = { ";
+    for(Job* job : dados.first) {
+        if (job->getId() == dados.first.back()->getId()) {
+            ofs << job->getId() << " ";
+        } else {
+            ofs << job->getId() << ", ";
+        }
+    }
+    
+    ofs << "}" << std::endl;
+    
+    ofs << "     Makespan: " << dados.second[0] << std::endl;
+    ofs << "     Alfa Utilizado: " << dados.second[1] << std::endl;
+    ofs << "     Duracao do Algoritmo: " << dados.second[2] << "s" << std::endl; //duracao
+    
+    ofs << std::endl;
 }
