@@ -1,0 +1,76 @@
+ * Resultados Obtidos nas 10 Iteracoes: 
+
+  --> Iteracao: 1
+     Conjunto de Jobs:
+     C = { 0, 8, 19, 10, 3, 1, 4, 2, 5, 9, 7, 12, 14, 17, 11, 6, 16, 13, 18, 15 }
+     Makespan: 497
+     Alfa Utilizado: 0.5
+     Duracao do Algoritmo: 0.000259423s
+
+  --> Iteracao: 2
+     Conjunto de Jobs:
+     C = { 3, 8, 10, 6, 12, 4, 11, 0, 1, 5, 9, 7, 14, 17, 19, 16, 2, 13, 18, 15 }
+     Makespan: 495
+     Alfa Utilizado: 0.5
+     Duracao do Algoritmo: 0.00281281s
+
+  --> Iteracao: 3
+     Conjunto de Jobs:
+     C = { 7, 6, 0, 11, 9, 12, 3, 17, 1, 4, 16, 14, 5, 19, 10, 18, 13, 8, 2, 15 }
+     Makespan: 489
+     Alfa Utilizado: 0.5
+     Duracao do Algoritmo: 0.00618911s
+
+  --> Iteracao: 4
+     Conjunto de Jobs:
+     C = { 2, 13, 17, 19, 16, 6, 8, 5, 12, 0, 1, 4, 7, 15, 10, 18, 9, 3, 11, 14 }
+     Makespan: 483
+     Alfa Utilizado: 0.5
+     Duracao do Algoritmo: 0.00614963s
+
+  --> Iteracao: 5
+     Conjunto de Jobs:
+     C = { 3, 10, 8, 2, 17, 19, 9, 6, 12, 14, 0, 5, 16, 11, 1, 18, 13, 4, 7, 15 }
+     Makespan: 489
+     Alfa Utilizado: 0.5
+     Duracao do Algoritmo: 0.00518308s
+
+  --> Iteracao: 6
+     Conjunto de Jobs:
+     C = { 16, 17, 19, 15, 0, 6, 3, 11, 7, 10, 4, 8, 9, 1, 13, 5, 12, 14, 2, 18 }
+     Makespan: 495
+     Alfa Utilizado: 0.5
+     Duracao do Algoritmo: 0.000984536s
+
+  --> Iteracao: 7
+     Conjunto de Jobs:
+     C = { 0, 6, 10, 18, 1, 17, 8, 4, 2, 5, 9, 12, 3, 16, 11, 14, 19, 13, 7, 15 }
+     Makespan: 484
+     Alfa Utilizado: 0.5
+     Duracao do Algoritmo: 0.00707672s
+
+  --> Iteracao: 8
+     Conjunto de Jobs:
+     C = { 5, 7, 0, 1, 12, 2, 9, 19, 8, 11, 14, 3, 16, 13, 17, 6, 4, 15, 10, 18 }
+     Makespan: 504
+     Alfa Utilizado: 0.5
+     Duracao do Algoritmo: 0.000455431s
+
+  --> Iteracao: 9
+     Conjunto de Jobs:
+     C = { 6, 9, 3, 17, 19, 4, 11, 10, 0, 5, 13, 1, 7, 2, 12, 8, 15, 14, 16, 18 }
+     Makespan: 522
+     Alfa Utilizado: 0.5
+     Duracao do Algoritmo: 0.000282091s
+
+  --> Iteracao: 10
+     Conjunto de Jobs:
+     C = { 2, 13, 17, 19, 16, 14, 4, 7, 15, 0, 11, 3, 12, 9, 1, 18, 5, 6, 8, 10 }
+     Makespan: 483
+     Alfa Utilizado: 0.5
+     Duracao do Algoritmo: 0.0122881s
+
+
+ --> Melhor Makespan Obtido: 483
+ --> Media dos Makespans Obtidos: 494.1
+ --> Media da Duracao Total das Iteracoes: 0.0041681s

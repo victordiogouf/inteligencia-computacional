@@ -97,7 +97,8 @@ void Instance::readInstance()
                     std::getline(ss, token, ',');
                     std::getline(ss, token2, ',');
                     std::getline(ss, valor, ',');
-                    this->delayConstraints[std::stoi(token)][std::stoi(token2)] = std::stoi(valor);
+                    this->delayConstraints[std::stoi(token)-1][std::stoi(token2)-1] = std::stoi(
+                        valor);
                 }
             } else if (line.starts_with("Sij=")) {
                 while (std::getline(ifs, line)) {

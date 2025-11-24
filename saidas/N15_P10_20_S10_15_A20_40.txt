@@ -1,0 +1,76 @@
+ * Resultados Obtidos nas 10 Iteracoes: 
+
+  --> Iteracao: 1
+     Conjunto de Jobs:
+     C = { 3, 6, 11, 13, 14, 4, 5, 8, 12, 0, 10, 7, 9, 2, 1 }
+     Makespan: 362
+     Alfa Utilizado: 0.5
+     Duracao do Algoritmo: 0.00303525s
+
+  --> Iteracao: 2
+     Conjunto de Jobs:
+     C = { 4, 9, 2, 1, 7, 11, 13, 12, 10, 3, 5, 8, 14, 0, 6 }
+     Makespan: 356
+     Alfa Utilizado: 0.5
+     Duracao do Algoritmo: 0.00232337s
+
+  --> Iteracao: 3
+     Conjunto de Jobs:
+     C = { 5, 0, 6, 11, 1, 7, 2, 9, 3, 10, 4, 8, 12, 13, 14 }
+     Makespan: 367
+     Alfa Utilizado: 0.5
+     Duracao do Algoritmo: 0.000163807s
+
+  --> Iteracao: 4
+     Conjunto de Jobs:
+     C = { 7, 9, 2, 11, 6, 10, 5, 13, 12, 0, 3, 8, 1, 14, 4 }
+     Makespan: 361
+     Alfa Utilizado: 0.5
+     Duracao do Algoritmo: 0.00149267s
+
+  --> Iteracao: 5
+     Conjunto de Jobs:
+     C = { 2, 5, 0, 3, 10, 12, 13, 14, 4, 1, 7, 9, 11, 6, 8 }
+     Makespan: 363
+     Alfa Utilizado: 0.5
+     Duracao do Algoritmo: 0.00212188s
+
+  --> Iteracao: 6
+     Conjunto de Jobs:
+     C = { 0, 9, 2, 10, 3, 12, 5, 4, 1, 7, 11, 6, 8, 14, 13 }
+     Makespan: 364
+     Alfa Utilizado: 0.5
+     Duracao do Algoritmo: 0.000150221s
+
+  --> Iteracao: 7
+     Conjunto de Jobs:
+     C = { 6, 7, 2, 5, 0, 3, 8, 12, 13, 1, 14, 4, 9, 11, 10 }
+     Makespan: 360
+     Alfa Utilizado: 0.5
+     Duracao do Algoritmo: 0.00144016s
+
+  --> Iteracao: 8
+     Conjunto de Jobs:
+     C = { 2, 0, 13, 7, 12, 11, 8, 14, 9, 10, 3, 1, 4, 5, 6 }
+     Makespan: 373
+     Alfa Utilizado: 0.5
+     Duracao do Algoritmo: 0.000231065s
+
+  --> Iteracao: 9
+     Conjunto de Jobs:
+     C = { 4, 5, 7, 2, 12, 0, 6, 9, 11, 10, 3, 8, 13, 1, 14 }
+     Makespan: 362
+     Alfa Utilizado: 0.5
+     Duracao do Algoritmo: 0.00203112s
+
+  --> Iteracao: 10
+     Conjunto de Jobs:
+     C = { 10, 7, 9, 2, 11, 0, 3, 5, 8, 14, 4, 1, 13, 12, 6 }
+     Makespan: 359
+     Alfa Utilizado: 0.5
+     Duracao do Algoritmo: 0.00155588s
+
+
+ --> Melhor Makespan Obtido: 356
+ --> Media dos Makespans Obtidos: 362.7
+ --> Media da Duracao Total das Iteracoes: 0.00145454s

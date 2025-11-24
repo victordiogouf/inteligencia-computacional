@@ -43,7 +43,7 @@ void Management::calcSolution()
     double somaTime = 0;
     double somaMakespan = 0;
 
-    double alfa = 0.1;
+    double alfa = 0.09;
 
     std::ofstream ofs;
     ofs.exceptions(std::ios_base::badbit);

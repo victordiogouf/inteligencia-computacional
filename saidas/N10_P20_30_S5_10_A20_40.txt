@@ -1,0 +1,76 @@
+ * Resultados Obtidos nas 10 Iteracoes: 
+
+  --> Iteracao: 1
+     Conjunto de Jobs:
+     C = { 2, 5, 0, 4, 9, 6, 1, 7, 3, 8 }
+     Makespan: 293
+     Alfa Utilizado: 0.5
+     Duracao do Algoritmo: 0.00058022s
+
+  --> Iteracao: 2
+     Conjunto de Jobs:
+     C = { 9, 0, 4, 3, 7, 6, 1, 5, 2, 8 }
+     Makespan: 293
+     Alfa Utilizado: 0.5
+     Duracao do Algoritmo: 0.000407484s
+
+  --> Iteracao: 3
+     Conjunto de Jobs:
+     C = { 0, 4, 1, 2, 5, 9, 6, 3, 7, 8 }
+     Makespan: 302
+     Alfa Utilizado: 0.5
+     Duracao do Algoritmo: 7.3877e-05s
+
+  --> Iteracao: 4
+     Conjunto de Jobs:
+     C = { 2, 5, 4, 9, 1, 7, 3, 6, 0, 8 }
+     Makespan: 293
+     Alfa Utilizado: 0.5
+     Duracao do Algoritmo: 0.0006486s
+
+  --> Iteracao: 5
+     Conjunto de Jobs:
+     C = { 2, 3, 4, 9, 6, 0, 8, 5, 1, 7 }
+     Makespan: 293
+     Alfa Utilizado: 0.5
+     Duracao do Algoritmo: 0.000219607s
+
+  --> Iteracao: 6
+     Conjunto de Jobs:
+     C = { 9, 1, 4, 3, 7, 6, 0, 8, 2, 5 }
+     Makespan: 291
+     Alfa Utilizado: 0.5
+     Duracao do Algoritmo: 0.000743793s
+
+  --> Iteracao: 7
+     Conjunto de Jobs:
+     C = { 0, 4, 9, 6, 2, 5, 1, 7, 3, 8 }
+     Makespan: 294
+     Alfa Utilizado: 0.5
+     Duracao do Algoritmo: 0.000662682s
+
+  --> Iteracao: 8
+     Conjunto de Jobs:
+     C = { 2, 5, 4, 9, 1, 7, 3, 6, 0, 8 }
+     Makespan: 293
+     Alfa Utilizado: 0.5
+     Duracao do Algoritmo: 0.000633844s
+
+  --> Iteracao: 9
+     Conjunto de Jobs:
+     C = { 3, 4, 0, 6, 9, 8, 5, 1, 7, 2 }
+     Makespan: 296
+     Alfa Utilizado: 0.5
+     Duracao do Algoritmo: 0.000117761s
+
+  --> Iteracao: 10
+     Conjunto de Jobs:
+     C = { 6, 0, 4, 3, 5, 9, 1, 7, 2, 8 }
+     Makespan: 293
+     Alfa Utilizado: 0.5
+     Duracao do Algoritmo: 0.000497179s
+
+
+ --> Melhor Makespan Obtido: 291
+ --> Media dos Makespans Obtidos: 294.1
+ --> Media da Duracao Total das Iteracoes: 0.000458505s
