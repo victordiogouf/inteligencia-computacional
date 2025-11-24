@@ -180,8 +180,8 @@ int Management::objectiveFunction(std::vector<Job*>& jobs)
     auto b = 0;
     auto c = 0;
     auto es = std::vector<int>(n, 0);
-    auto d = this->instance->getDelayConstraints();
-    auto s = this->instance->getSetupTimes();
+    auto& d = this->instance->getDelayConstraints();
+    auto& s = this->instance->getSetupTimes();
     while (r < n) {
         c = b + jobs[r]->getProcessingTime();
         if (r == n - 1) {
@@ -211,9 +211,9 @@ std::vector<Job*> Management::getCandidatesList(std::vector<Job*>& solution)
     bool isCandidate;
 
     auto numJobs = this->instance->getNumJobs();
-    auto delayConstraints = this->instance->getDelayConstraints();
-    auto setupTimes = this->instance->getSetupTimes();
-    auto jobs = this->instance->getJobs();
+    auto& delayConstraints = this->instance->getDelayConstraints();
+    auto& setupTimes = this->instance->getSetupTimes();
+    auto& jobs = this->instance->getJobs();
 
     for(int i = 0; i < numJobs; i++) {
         isCandidate = true;
